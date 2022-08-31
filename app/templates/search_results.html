@@ -1,0 +1,8 @@
+<h1>Search Results</h1>
+<ul>
+  {% for news in new %}
+    <li>
+      {{ news.department }}, {{ news.title }}
+    </li>
+  {% endfor %}
+</ul>
