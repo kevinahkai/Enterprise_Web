@@ -44,7 +44,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'members.apps.MembersConfig',
     'bulletin.apps.BulletinConfig',
-    'file.apps.FileConfig',
     'announce.apps.AnnounceConfig',
 ]
 
@@ -141,8 +140,8 @@ MEDIA_ROOT = os.path.join(BASE_DIR, '/media/uploads/')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-LOGIN_REDIRECT_URL = "home"
-LOGOUT_REDIRECT_URL = "home"
+LOGIN_REDIRECT_URL = "index"
+LOGOUT_REDIRECT_URL = "index"
 LOGIN_URL = "members:login"
 
 
