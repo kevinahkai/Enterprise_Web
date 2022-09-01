@@ -43,8 +43,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'members.apps.MembersConfig',
-    'bulletin.apps.BulletinConfig',
     'announce.apps.AnnounceConfig',
+    'conference.apps.ConferenceConfig',
 ]
 
 MIDDLEWARE = [
