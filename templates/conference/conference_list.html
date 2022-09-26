@@ -32,19 +32,6 @@
           </div>
         </div>
       </div>
-    {% comment %} {% else %}
-    {% endif %} {% endcomment %}
-    {% comment %} {% if user.is_admin %}
-      <form action="{% url 'search_results' %}" method="GET">
-        <select name="department">
-          <option value="公關部">公關部</option>
-          <option value="研發部">研發部</option>
-          <option value="國貿部">國貿部</option>
-        </select>
-        <button type="submit">搜尋</button>
-      </form>
-    {% else %}
-    {% endif %} {% endcomment %}
 
     <table class="table table-bordered table-striped">
         <thead class="thead-dark">
