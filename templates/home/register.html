@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}登入{% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-uWxY/CJNBR+1zjPWmfnSnVxwRheevXITnMqoEIeG1LJrdI0GlVs/9cVSyPYXdcSF" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static "css/signin.css" %}">
+    <link rel="shortcut icon" type="image/png" href="{% static "images/title_logo.png" %}"/>
+</head>
+
+<body class="text-center">
+  <main class="form-signin w-100 m-auto">
+    <form method="post">
+      <a class="navbar-brand" href="{% url 'index' %}">
+        <img class="rounded mx-auto d-block" src="{% static "images/title_logo.png" %}"  width="72" height="57">
+      </a>
+      <h1 class="h3 mb-3 fw-normal">註冊</h1>
+      {% csrf_token %}
+      <div class="form-floating">
+        <input type="email" class="form-control" name="email" id="inputEmail" placeholder="Email address" required>
+        <label>電子郵件</label>
+      </div>
+      <div class="form-floating">
+        <input class="form-control" name="username" id="inputUsername" placeholder="Username" required>
+        <label>名字</label>
+      </div>
+      <div class="form-floating">
+        <input class="form-control" name="department" id="inputDepartment" placeholder="department" required>
+        <label>所屬部門</label>
+      </div>
+      <div class="form-floating">
+        <input class="form-control" name="phone" id="inputPhone" placeholder="Phone" required>
+        <label>電話號碼</label>
+      </div>
+      <div class="form-floating">
+        <input type="password" class="form-control" name="password1" id="inputPassword1" placeholder="Password" required>
+        <label>密碼設定</label>
+      </div>
+      <div class="form-floating">
+        <input type="password" class="form-control" name="password2" id="inputPassword2" placeholder="Confirm password" required>
+        <label>密碼確認</label>
+      </div>
+      
+
+      {% for field in registration_form %}
+      <p>
+      {% for error in field.errors %}
+      <p style="color:red">{{ error }}</p>
+      {% endfor %}
+      </p>
+      {% endfor %}
+      {% if registration_form.non_field_errors %}
+      <div style="color: red">
+            <p>{{registration_form.non_field_errors}}</p>
+      </div>
+      {% endif %}
+
+      <button class="w-100 btn btn-lg btn-primary" type="submit">送出</button>
+      <p class="mt-5 mb-3 text-muted">&copy; 2022 龍浦興業股份有限公司</p>
+    </form>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-kQtW33rZJAHjgefvhyyzcGF3C5TFyBQBA13V1RKPf4uH+bwyzQxZ6CmMZHmNBEfJ" crossorigin="anonymous"></script>
+
+</body>
+</html>

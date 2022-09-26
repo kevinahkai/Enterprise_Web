@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% load static %}
+<title>{% block title %}專案列表{% endblock %}</title>
+
+{% block content %}
+<div class='container'>
+  {% comment %} {% if perms.announce.add_news %} {% endcomment %}
+    <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#insert_Announce_Modal" data-bs-whatever="@mdo">
+        新增專案
+    </button>
+    <!-- The Modal -->
+    <div class="modal fade" id="insert_Announce_Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">新增專案</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form action="" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">關閉</button>
+                  <input class="btn btn-primary" type="submit" value="儲存" />
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+
+    <table class="table table-bordered table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">專案名稱</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for i in project %}
+                <tr>
+                    <td>
+                      <a href="{% url 'project_content' i.id %}">
+                        {{i.name}}
+                      </a>
+                      {% comment %} {% if user.is_admin %}
+                        <span style="float:right;">
+                          部門 : {{new.owner.department}}
+                        </span>
+                      {% else %}
+                        <span style="float:right;">
+                            創建人 : {{new.owner.username}}
+                        </span>
+                      {% endif %} {% endcomment %}
+                    </td>
+                    
+                </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+</div>
+{% endblock %}

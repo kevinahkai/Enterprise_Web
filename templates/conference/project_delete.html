@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container">
+    <h4>確定要刪除{{project.name}}?</h4>
+    <form action="" method="POST">
+        {% csrf_token %}
+        <input class="btn btn-danger" type="submit" value="確定" />
+        <a class="btn btn-secondary" href="{% url 'project_list' %}">取消</a>
+    </form>
+</div>
+
+
+
+
+{% endblock%}

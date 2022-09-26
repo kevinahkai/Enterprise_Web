@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% load static %}
+<title>{% block title %}公告{% endblock %}</title>
+{% block login %}
+<a class="nav-link text-accent " href="{% url 'read' %}">公告頁</a>    <!--text-accent可於css修改字體顏色-->
+{% endblock %}
+
+{% block content %}
+<div class='container'>
+  {% if perms.announce.add_news %}
+    <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#insert_Announce_Modal" data-bs-whatever="@mdo">
+        新增公告
+    </button>
+    <!-- The Modal -->
+    <div class="modal fade" id="insert_Announce_Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">新增公告</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form action="" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form }}
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">關閉</button>
+                  <input class="btn btn-primary" type="submit" value="儲存" />
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    {% else %}
+    {% endif %}
+    {% comment %} {% if user.is_admin %}
+      <form action="{% url 'search_results' %}" method="GET">
+        <select name="department">
+          <option value="公關部">公關部</option>
+          <option value="研發部">研發部</option>
+          <option value="國貿部">國貿部</option>
+        </select>
+        <button type="submit">搜尋</button>
+      </form>
+    {% else %}
+    {% endif %} {% endcomment %}
+    <table class="table table-bordered table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">標題</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for new in news %}
+                <tr>
+                    <td>
+                      <a href="{% url 'detail' new.id %}">
+                        {{new.title}}
+                      </a>
+                      {% if user.is_admin %}
+                        <span style="float:right;">
+                          部門 : {{new.owner.department}}
+                        </span>
+                      {% else %}
+                        <span style="float:right;">
+                            創建人 : {{new.owner.username}}
+                        </span>
+                      {% endif %}
+                    </td>
+                    
+                </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+</div>
+{% endblock %}

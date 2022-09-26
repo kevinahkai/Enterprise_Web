@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+{% extends 'base.html' %}
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+{% block content %}  
+<div class="container">
+    <div class="mb-3">
+        <div class="col-md-12">
+            <label class="form-label">專案名稱</label>
+            <textarea disabled class="form-control" rows="1">{{ project.name }}</textarea>
+        </div>
+    </div>
+    <div class="mb-3">
+        <div class="col-md-12">
+            <label class="form-label">開始日期</label>
+            <textarea disabled class="form-control" rows="1">{{ project.start_date }}</textarea>
+        </div>
+    </div>
+    <div class="mb-3">
+        <div class="col-md-12">
+            <label class="form-label">預期結束日</label> 
+            <input type="text" disabled {{ form.exp_date }}
+        </div>
+    </div>
+    <div class="mb-3">
+        <div class="col-md-12">
+            <label class="form-label">結束日</label> 
+            <input type="text" disabled {{ form.end_date }}
+        </div>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">專案介紹</label> 
+        <textarea type="text" disabled {{ form.intro }}
+    </div>
+    <a href="{% url 'project_delete' project.id %}" class="btn btn-danger">刪除</a>
+</div>
+{% endblock %}

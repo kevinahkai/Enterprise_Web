@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% load static %}
+<title>{% block title %}會議列表{% endblock %}</title>
+{% block login %}
+<a class="nav-link text-accent " href="{% url 'read' %}">公告頁</a>    <!--text-accent可於css修改字體顏色-->
+{% endblock %}
+
+{% block content %}
+<div class='container'>
+  {% comment %} {% if perms.announce.add_news %} {% endcomment %}
+    <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#insert_Announce_Modal" data-bs-whatever="@mdo">
+        新增會議
+    </button>
+    <!-- The Modal -->
+    <div class="modal fade" id="insert_Announce_Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">新增會議</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form action="" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">關閉</button>
+                  <input class="btn btn-primary" type="submit" value="儲存" />
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    {% comment %} {% else %}
+    {% endif %} {% endcomment %}
+    {% comment %} {% if user.is_admin %}
+      <form action="{% url 'search_results' %}" method="GET">
+        <select name="department">
+          <option value="公關部">公關部</option>
+          <option value="研發部">研發部</option>
+          <option value="國貿部">國貿部</option>
+        </select>
+        <button type="submit">搜尋</button>
+      </form>
+    {% else %}
+    {% endif %} {% endcomment %}
+
+    <table class="table table-bordered table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">會議名稱</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for i in conference %}
+                <tr>
+                    <td>
+                      <a href="{% url 'conference_content' i.id %}">
+                        {{i.title}}
+                      </a>
+                      {% comment %} {% if user.is_admin %}
+                        <span style="float:right;">
+                          部門 : {{new.owner.department}}
+                        </span>
+                      {% else %}
+                        <span style="float:right;">
+                            創建人 : {{new.owner.username}}
+                        </span>
+                      {% endif %} {% endcomment %}
+                    </td>
+                    
+                </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+</div>
+{% endblock %}

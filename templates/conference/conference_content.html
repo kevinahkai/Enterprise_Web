@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+{% extends 'base.html' %}
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+{% block content %}    
+<div class='container'>
+    <button type="button" class="btn btn-outline-primary btn-md float-end" data-bs-toggle="modal" data-bs-target="#insert_Announce_Modal" data-bs-whatever="@mdo">
+        會議記錄表
+    </button>
+    <!-- The Modal -->
+    <div class="modal fade" id="insert_Announce_Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header text-center">
+            <h5 class="modal-title w-100" id="exampleModalLabel">龍浦興業股份有限公司</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+            {% comment %} <form action="" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form }}
+                <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">關閉</button>
+                <input class="btn btn-primary" type="submit" value="儲存" />
+                </div>
+            </form> {% endcomment %}
+            <body>
+                <h1>Conference_content </h1>
+                <form action="" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                Recorder: <input type="text" name="recorder"/><br>
+                time : <input type="text" name="time"/><br>
+                Content: <br>
+                <textarea cols="35" rows="8" name="content">
+                </textarea><br>
+                file : <input type="file" id="avatar" name="file" accept="image/png, image/jpeg, .doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" /><br>
+                
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">關閉</button>
+                <input class="btn btn-primary" type="submit" value="儲存"/>
+                </form>
+            </body>
+        </div>
+        </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="mb-3">
+        <label class="form-label">會議名稱</label>
+        <textarea disabled class="form-control" rows="1">{{ conference.title }}</textarea>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">主席</label>
+        <textarea disabled class="form-control" rows="5">{{ conference.host }}</textarea>
+    </div>
+    <div class="mb-3"><div class="row">
+        <div class="col-md-8">
+            <label class="form-label">日期：</label> 
+            <input type="text" disabled {{ form.date }}
+        </div>
+    </div>
+    <a href="{% url 'conference_delete' conference.id %}" class="btn btn-danger">刪除</a>
+</div>
+</div>
+</div>
+{% endblock %}
